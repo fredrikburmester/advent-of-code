@@ -46,7 +46,7 @@ def part2(input_list):
 
 
 def main():
-    with open("./Dag 3/input.txt", "r", encoding='UTF-8') as file:
+    with open("./2021/Day 2/input.txt", "r", encoding='UTF-8') as file:
         input_list = [str(line.strip()) for line in file]
 
     result1 = part1(input_list)

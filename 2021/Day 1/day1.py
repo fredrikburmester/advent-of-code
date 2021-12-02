@@ -20,7 +20,7 @@ def part2(list_of_numbers):
 def main():
     list_of_numbers = []
 
-    file = open("input.txt", "r", encoding="utf-8")
+    file = open("./2021/Day 1/input.txt", "r", encoding="utf-8")
     for line in file:
         list_of_numbers.append(int(line))
 
