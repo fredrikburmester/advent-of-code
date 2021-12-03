@@ -102,11 +102,11 @@ def part2(input_list):
         # Rebuild the counting list
         count_list = build_counting_list(list_of_numbers, length)
 
-    # Calculate the C02 Scrupper rating
+    # Calculate the C02 Scrubber rating
     list_of_numbers = list_of_numbers[0]
-    c02_scrupper_rating = binary_to_base10(list_of_numbers)
+    c02_scrubber_rating = binary_to_base10(list_of_numbers)
 
-    return oxygen_generator_rating * c02_scrupper_rating
+    return oxygen_generator_rating * c02_scrubber_rating
 
 
 def main():
