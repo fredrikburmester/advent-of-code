@@ -1,3 +1,9 @@
+"""
+This problem can be solved with binary operators but I'm not
+well versed in those so here is the caveman version.
+"""
+
+
 def binary_to_base10(binary):
     number = 0
     for index, value in enumerate(binary[::-1]):
