@@ -1,5 +1,5 @@
 """
-This problem can be solved with binary operators but I'm not
+This problem can be solved with bitwise operations but I'm not
 well versed in those so here is the caveman version.
 """
 
