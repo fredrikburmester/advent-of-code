@@ -5,6 +5,7 @@ well versed in those so here is the caveman version.
 
 
 def binary_to_base10(binary):
+    """ This can be done simply by int(binary, 2), no need for this function """
     number = 0
     for index, value in enumerate(binary[::-1]):
         value = int(value)
