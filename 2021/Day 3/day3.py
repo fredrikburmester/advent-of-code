@@ -17,6 +17,7 @@ def binary_to_base10(binary):
 
 
 def invert(binary):
+    """ Invert the binary number. 1 -> 0, 0 -> 1 """
     inverted_number = []
     for value in binary:
         if int(value) == 1:
@@ -27,6 +28,10 @@ def invert(binary):
 
 
 def build_counting_list(list_of_numbers, length):
+    """ 
+    Takes a list of binary numbers and calculates the most frequest number in each column.
+    Returns a new binary number where the value is 1 if 1s are most frequent in the column otherwise 0, for each value.
+    """ 
     count_list = [0] * length
     for value in list_of_numbers:
         for index, letter in enumerate(value):
@@ -43,7 +48,7 @@ def build_counting_list(list_of_numbers, length):
 def part1(input_list):
     length = len(input_list[0])
 
-    # Go through the input list and calculate the counting list for each binary number
+    # Go through the input list line by line and calculate the counting list for each binary number
     count_list = build_counting_list(input_list, length)
 
     # Calculate gamma
@@ -97,11 +102,11 @@ def part2(input_list):
         # Rebuild the counting list
         count_list = build_counting_list(list_of_numbers, length)
 
-    # Calculate the C02 Scrupper rating
+    # Calculate the C02 Scrubber rating
     list_of_numbers = list_of_numbers[0]
-    c02_scrupper_rating = binary_to_base10(list_of_numbers)
+    c02_scrubber_rating = binary_to_base10(list_of_numbers)
 
-    return oxygen_generator_rating * c02_scrupper_rating
+    return oxygen_generator_rating * c02_scrubber_rating
 
 
 def main():
