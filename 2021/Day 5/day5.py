@@ -1,5 +1,7 @@
 """
-Todays was more thinking than progamming.
+Todays was more thinking than progamming. If you don't do any clever math and only
+draw the line as they are given, you only have to create three draw functions,
+one for each diagonal and one for the horrizonal and vertical lines.
 """
 
 
@@ -16,6 +18,17 @@ def draw_positive_line(x1, _, y1, y2, matrix):
     for row in range(y1, y2-1, -1):
         matrix[row][col] += 1
         col += 1
+    return matrix
+
+
+def draw_horrisontal_line(x1, x2, y1, y2, matrix):
+    if x1 > x2:
+        x1, x2 = x2, x1
+    if y1 > y2:
+        y1, y2 = y2, y1
+    for row in range(y1, y2+1):
+        for col in range(x1, x2+1):
+            matrix[row][col] += 1
     return matrix
 
 
@@ -36,13 +49,7 @@ def part1(input_list):
 
         # Horrizonal and vertical line
         if x1 == x2 or y1 == y2:
-            if x1 > x2:
-                x1, x2 = x2, x1
-            if y1 > y2:
-                y1, y2 = y2, y1
-            for row in range(y1, y2+1):
-                for col in range(x1, x2+1):
-                    matrix[row][col] += 1
+            matrix = draw_horrisontal_line(x1, x2, y1, y2, matrix)
 
     # Optional: print the matrix
     if size < 100:
