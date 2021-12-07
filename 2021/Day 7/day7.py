@@ -2,6 +2,9 @@
 Was a bit scared this was gonna be a difficult one, so i was looking at doing a nearest negihbor method,
 especially for part 2. But as it turns out, it was a bit easier to just do a brute force search.
 Lost some time on this one because of that but that's fine.
+
+If we're not using the partial sums for the calculation it would be slow.
+Using the median with a radius for min max in the loop is an ok method to not try all combinations.
 """
 import statistics
 
@@ -22,15 +25,11 @@ def part1(input_list):
 def part2(input_list):
     numbers = [int(x) for x in input_list[0].split(",")]
 
-    mean = int(sum(numbers) / len(numbers))
     total_fuel_burn = float('inf')
     best_move_to = 0
-    delta = 200
-
-    median = int(statistics.median(numbers))
 
     # Arbitrary range based on mean
-    for move_to in range(mean-delta, mean+delta):
+    for move_to in range(min(numbers), max(numbers)):
         dis = 0
 
         # Calculate fuel burn for each move
