@@ -31,7 +31,7 @@ def part1(input_list):
 
 
 def part2(input_list):
-    pass
+    return 0
 
 
 def main():
