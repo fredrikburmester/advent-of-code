@@ -1,28 +1,20 @@
 """
-Was a bit scared this was gonna be a difficult one, so i was looking at doing a nearest negihbor method.
-But as it turns out, it was a bit easier to just do a brute force search.
+Was a bit scared this was gonna be a difficult one, so i was looking at doing a nearest negihbor method,
+especially for part 2. But as it turns out, it was a bit easier to just do a brute force search.
 Lost some time on this one because of that but that's fine.
 """
+import statistics
 
 
 def part1(input_list):
     numbers = [int(x) for x in input_list[0].split(",")]
 
     total_fuel_burn = float('inf')
-    mean = int(sum(numbers) / len(numbers))
-    delta = 200
+    median = int(statistics.median(numbers))
 
-    # Arbitrary range based on mean
-    print("Trying moves...")
-    for move_to in range(mean-delta, mean+delta):
-        # Calculate fuel burn for each move
-        dis = sum([abs(move_to - move_from) for move_from in numbers])
+    total_fuel_burn = sum([abs(median - move_from) for move_from in numbers])
 
-        # Save least amount of fuelburn
-        if dis < total_fuel_burn:
-            total_fuel_burn, best_move_to = dis, move_to
-
-    print(f"To: {best_move_to}, Fuel: {total_fuel_burn}")
+    print(f"To: {median}, Fuel: {total_fuel_burn}")
 
     return total_fuel_burn
 
@@ -35,14 +27,21 @@ def part2(input_list):
     best_move_to = 0
     delta = 200
 
+    median = int(statistics.median(numbers))
+
     # Arbitrary range based on mean
-    print("Trying moves...")
     for move_to in range(mean-delta, mean+delta):
         dis = 0
 
         # Calculate fuel burn for each move
         for move_from in numbers:
-            dis += sum([i for i in range(1, abs(move_to - move_from) + 1)])
+
+            # Partial sums formula
+            delta = abs(move_to - move_from)
+            dis += ((delta + 1) * delta) // 2
+
+            # Calculating method
+            #dis += sum([i for i in range(1, abs(move_to - move_from) + 1)])
 
         # Save least amount of fuelburn
         if dis < total_fuel_burn:
@@ -60,7 +59,7 @@ def main():
     test_input = ['16,1,2,0,4,2,7,1,2,14']
     expected_output = [37, 168]
 
-    input_list = test_input
+    #input_list = test_input
 
     result = part1(input_list)
     print(f"{result} is the result of part 1\n")
