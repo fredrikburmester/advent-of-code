@@ -9,6 +9,7 @@ smaller than the current number. To keep track of the checked numbers I used a d
 I then sorted the list of lengths and took the first three for the result.
 """
 from collections import defaultdict
+import time
 
 
 def part1(input_list):
@@ -135,8 +136,11 @@ def main():
     result = part1(input_list)
     print(f"{result} is the result of part 1\n")
 
+    t0 = time.time()
     result2 = part2(input_list)
-    print(f"{result2} is the result of part 2\n")
+    t1 = time.time()
+
+    print(f"{result2} is the result of part 2 in {t1-t0} seconds\n")
 
 
 # Run main function

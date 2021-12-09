@@ -170,8 +170,10 @@ def main():
     result = part1(input_list)
     print(f"{result} is the result of part 1\n")
 
+    t0 = time.time()
     result2 = part2(input_list)
-    print(f"{result2} is the result of part 2\n")
+    t1 = time.time()
+    print(f"{result2} is the result of part 2 in {t1-t0} seconds")
 
 
 # Run main function
