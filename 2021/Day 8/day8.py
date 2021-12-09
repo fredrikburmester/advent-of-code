@@ -3,6 +3,7 @@ Don't read this code, it's horrible. I'm just trying to get it done.
 
 Thanks ... 
 """
+import time
 
 
 def part1(input_list):
@@ -28,7 +29,7 @@ def part1(input_list):
     return 0
 
 
-def part3(input_list):
+def part2(input_list):
     total_numbers = []
     for line in input_list:
         line1 = line.split("|")[0].strip()
@@ -162,74 +163,15 @@ def part3(input_list):
     return 0
 
 
-def part4(input_list):
-    total_numbers = []
-
-    for line in input_list:
-        line = line.split(" | ")
-        lhs = line[0].strip().split(" ")
-        rhs = line[1].strip().split(" ")
-
-        lhs = ["".join(sorted(s)) for s in lhs]
-        rhs = ["".join(sorted(s)) for s in rhs]
-
-        one = [c for c in lhs if len(c) == 2][0]
-        seven = [c for c in lhs if len(c) == 3][0]
-        four = [c for c in lhs if len(c) == 4][0]
-        eight = [c for c in lhs if len(c) == 7][0]
-
-        nines = [c for c in lhs if len(c) == 6]
-        zeros = [c for c in lhs if len(c) == 6]
-        twos = [c for c in lhs if len(c) == 5]
-        threes = [c for c in lhs if len(c) == 5]
-        fives = [c for c in lhs if len(c) == 5]
-        sixes = [c for c in lhs if len(c) == 6]
-
-        for i, c in enumerate(zeros):
-            if not set(seven).issubset(set(c)) or not set(one).issubset(set(c)):
-                zeros.pop(i)
-        print(zeros)
-
-        for i, c in enumerate(nines):
-            if not set(seven).issubset(set(c)) or not set(one).issubset(set(c)) or not set(four).issubset(set(c)):
-                nines.pop(i)
-        print(nines)
-
-        for i, c in enumerate(twos):
-            for n in lhs:
-                if not set(c).issubset(set(n)):
-                    twos.pop(i)
-                    break
-                nines.pop(i)
-        print(nines)
-
-        for s in lhs:
-            print(s)
-            if len(s) == 2:
-                #nines = [c for c in nines if s in c]
-                pass
-            if len(s) == 3:
-                nines = [c for c in nines if s in c]
-                print("nines", nines)
-            if len(s) == 7:
-                pass
-
-        return
-    return 0
-
-
 def main():
     with open("./2021/Day 8/input.txt", "r", encoding='UTF-8') as file:
         input_list = [str(line.strip()) for line in file]
 
-    # result = part1(input_list)
-    # print(f"{result} is the result of part 1\n")
+    result = part1(input_list)
+    print(f"{result} is the result of part 1\n")
 
-    # result2 = part3(input_list)
-    # print(f"{result2} is the result of part 2\n")
-
-    result4 = part4(input_list)
-    print(f"{result4} is the result of part 2\n")
+    result2 = part2(input_list)
+    print(f"{result2} is the result of part 2\n")
 
 
 # Run main function
