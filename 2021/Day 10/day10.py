@@ -1,44 +1,106 @@
 """
 """
-from collections import defaultdict
+
+mapp = {
+    '[': ']',
+    '(': ')',
+    '{': '}',
+    '<': '>',
+    ']': '[',
+    ')': '(',
+    '}': '{',
+    '>': '<'
+}
+
+left = ['(', '<', '{', '[']
 
 
-def help_func():
-    pass
+def check_illegal(line):
+
+    ss = []
+    for i in range(len(line)):
+        c = line[i]
+        c_r = mapp.get(c)
+        if c in left:
+            ss.append(c)
+        else:
+            if c_r == ss[-1]:
+                ss.pop()
+            else:
+                return c
+
+
+def check_missing(line):
+    ss = []
+    for i in range(len(line)):
+        c = line[i]
+        c_r = mapp.get(c)
+        if c in left:
+            ss.append(c)
+        else:
+            if c_r == ss[-1]:
+                ss.pop()
+            else:
+                return c
+    return ss
 
 
 def part1(input_list):
     """ Part 1"""
 
-    mapp = defaultdict(int)
+    cost = {
+        '>': 25137,
+        '}': 1197,
+        ')': 3,
+        ']': 57
+    }
 
-    first = input_list[0]
-    lx = len(first)
-    ly = len(input_list)
-
+    illegal_chars = []
     for line in input_list:
-        line = [int(x) for x in line]
-        line = [str(x) for x in line.split(" ")]
-        line = [str(x) for x in line.split("\n\n")]
-        matrix = [[int(x) for x in line] for line in input_list]
+        i = check_illegal(line)
+        illegal_chars.append(i)
 
-        # Print line
-        print(line)
+    illegal_chars = [c for c in illegal_chars if c]
 
-    # Print the matrix
-    for line in matrix:
-        print(line)
+    points = sum([cost[c] for c in illegal_chars])
 
-    return 0
+    return points
 
 
 def part2(input_list):
     """ Part 2 """
-    return 0
+
+    ll = []
+
+    cost = {
+        '>': 4,
+        '}': 3,
+        ')': 1,
+        ']': 2
+    }
+
+    for i, line in enumerate(input_list):
+        check = check_illegal(line)
+        if not check:
+            ll.append(line)
+    totals = []
+    for line in ll:
+        points = 0
+        i = check_missing(line)
+        reversed_list = i[::-1]
+        for c in reversed_list:
+            points *= 5
+            points += cost.get(mapp.get(c))
+        totals.append(points)
+
+    totals.sort()
+    middleIndex = (len(totals) - 1) // 2
+
+    return totals[middleIndex]
 
 
 def main():
-    with open("./2021/Day x/input.txt", "r", encoding='UTF-8') as file:
+    with open("./2021/Day 10/input.txt", "r", encoding='UTF-8') as file:
         input_list = [str(line.strip()) for line in file]
 
     result = part1(input_list)

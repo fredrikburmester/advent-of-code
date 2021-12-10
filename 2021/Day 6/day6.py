@@ -78,8 +78,8 @@ def main():
     result = part1(input_list)
     print(f"{result} is the result of part 1\n")
 
-    result2 = part2(input_list)
-    print(f"{result2} is the result of part 2\n")
+    #result2 = part2(input_list)
+    #print(f"{result2} is the result of part 2\n")
 
 
 # Run main function
