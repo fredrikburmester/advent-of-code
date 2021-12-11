@@ -53,7 +53,7 @@ def part2(input_list):
 
 
 def main():
-    with open("./2021/Day x/input.txt", "r", encoding='UTF-8') as file:
+    with open("./2021/Day 12/input.txt", "r", encoding='UTF-8') as file:
         input_list = [str(line.strip()) for line in file]
 
     t0 = time.time()
