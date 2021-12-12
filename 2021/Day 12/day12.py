@@ -5,52 +5,106 @@ from collections import defaultdict
 import time
 
 
-def neighbours_4(matrix, x, y):
-    def in_range(x, y):
-        return 0 <= x < len(matrix[0]) and 0 <= y < len(matrix)
-    return [p for p in [(x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)] if in_range(*p)]
+def find_all_paths(connections, visited, start):
+    """
+    Find all paths from start to end.
+
+    Args:
+        connections (dict): The connections of the cave.
+        visited (list): The visited nodes.
+        start (str): The start node.
+    """
+
+    _visited = visited.copy()
+
+    if start == 'end':
+        return 1
+
+    paths = connections.get(start)
+
+    if start.islower():
+        _visited.append(start)
+
+    nr_of_paths = 0
+
+    for path in paths:
+        if path not in visited:
+            nr_of_paths += find_all_paths(connections, _visited, path)
+
+    return nr_of_paths
 
 
-def neighbours_8(matrix, x, y):
-    def in_range(x, y):
-        return 0 <= x < len(matrix[0]) and 0 <= y < len(matrix)
-    return [p for p in [(x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1), (x+1, y+1), (x-1, y-1), (x+1, y-1), (x-1, y+1)] if in_range(*p)]
+def find_all_paths_2(connections, visited, start, cave):
+    """
+    Find all paths from start to end where one small cave can be visited twice.
 
+    Args:
+        connections (dict): The connections of the cave.
+        visited (list): The visited nodes.
+        start (str): The start node.
+        cave (str): Keeping track of the cave to visit twice.
+    """
 
-def help_func():
-    pass
+    if start == 'end':
+        return 1
+
+    if start.islower() and start in visited:
+        if cave is None:
+            cave = start
+        else:
+            return 0
+
+    _visited = visited.copy()
+    if start.islower():
+        _visited.append(start)
+
+    nr_of_paths = 0
+    paths = connections.get(start)
+    for path in [p for p in paths if p != 'start']:
+        nr_of_paths += find_all_paths_2(connections, _visited, path, cave)
+
+    return nr_of_paths
 
 
 def part1(input_list):
-    """ Part 1"""
+    """ Part 1 """
 
-    mapp = defaultdict(int)
+    visited = []
 
-    first = input_list[0]
-    lx = len(first)
-    ly = len(input_list)
+    connections = defaultdict(list)
 
-    """ MATRIX """
-    matrix = [[int(x) for x in line] for line in input_list]
-    # Print the matrix
-    for line in matrix:
-        print(line)
-
-    """ LINE """
     for line in input_list:
-        line = [int(x) for x in line]
-        line = [str(x) for x in line.split(" ")]
-        line = [str(x) for x in line.split("\n\n")]
+        line1 = [str(x) for x in line.split("-")]
+        line2 = [str(x) for x in line.split("-")[::-1]]
 
-        # Print line
-        print(line)
+        connections[line1[0]].append(line1[1])
+        connections[line2[0]].append(line2[1])
 
-    return 0
+    nr_of_pahts = 0
+
+    nr_of_pahts = find_all_paths(connections, visited, 'start')
+
+    return nr_of_pahts
 
 
 def part2(input_list):
     """ Part 2 """
-    return 0
+
+    visited = []
+
+    connections = defaultdict(list)
+
+    for line in input_list:
+        line1 = [str(x) for x in line.split("-")]
+        line2 = [str(x) for x in line.split("-")[::-1]]
+
+        connections[line1[0]].append(line1[1])
+        connections[line2[0]].append(line2[1])
+
+    nr_of_paths = 0
+
+    nr_of_paths += find_all_paths_2(connections, visited, 'start', None)
+    return nr_of_paths
 
 
 def main():
