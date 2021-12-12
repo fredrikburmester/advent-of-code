@@ -3,6 +3,7 @@ This is a template
 """
 from collections import defaultdict
 import time
+from copy import deepcopy
 
 
 def find_all_paths(connections, visited, start):
@@ -15,7 +16,7 @@ def find_all_paths(connections, visited, start):
         start (str): The start node.
     """
 
-    _visited = visited.copy()
+    visited = deepcopy(visited)
 
     if start == 'end':
         return 1
@@ -23,13 +24,13 @@ def find_all_paths(connections, visited, start):
     paths = connections.get(start)
 
     if start.islower():
-        _visited.append(start)
+        visited.append(start)
 
     nr_of_paths = 0
 
     for path in paths:
         if path not in visited:
-            nr_of_paths += find_all_paths(connections, _visited, path)
+            nr_of_paths += find_all_paths(connections, visited, path)
 
     return nr_of_paths
 
@@ -54,14 +55,14 @@ def find_all_paths_2(connections, visited, start, cave):
         else:
             return 0
 
-    _visited = visited.copy()
+    visited = deepcopy(visited)
     if start.islower():
-        _visited.append(start)
+        visited.append(start)
 
     nr_of_paths = 0
     paths = connections.get(start)
     for path in [p for p in paths if p != 'start']:
-        nr_of_paths += find_all_paths_2(connections, _visited, path, cave)
+        nr_of_paths += find_all_paths_2(connections, visited, path, cave)
 
     return nr_of_paths
 
@@ -114,7 +115,7 @@ def main():
     t0 = time.time()
     result = part1(input_list)
     t1 = time.time()
-    print(f"{result} is the result of part 2 in {t1-t0} seconds\n")
+    print(f"{result} is the result of part 1 in {t1-t0} seconds\n")
 
     t0 = time.time()
     result2 = part2(input_list)
