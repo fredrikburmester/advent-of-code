@@ -1,6 +1,7 @@
 """
 """
 from collections import defaultdict
+from copy import deepcopy
 import time
 
 
@@ -59,7 +60,7 @@ def main():
     t0 = time.time()
     result = part1(input_list)
     t1 = time.time()
-    print(f"{result} is the result of part 2 in {t1-t0} seconds\n")
+    print(f"{result} is the result of part 1 in {t1-t0} seconds\n")
 
     t0 = time.time()
     result2 = part2(input_list)
