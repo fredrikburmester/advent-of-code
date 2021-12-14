@@ -1,67 +1,55 @@
 """
+This problem was similar to the lanternfish problem earlier this month.
+I solve part 1 by string building, but part 2 needed a better solution.
+
+Part 2 explanation:
+After I though about the problem I realized that after each step we check the insertions and the
+resulting letter combinations, and their insertions and so and and so on. We keep track of the
+total number of letters inserted.
+
+Results:
+2891 is the result of part 1 in 0.21100807189941406 seconds
+4607749009683 is the result of part 2 in 0.0038957595825195312 seconds
 """
-from collections import defaultdict, OrderedDict
+
+
+from collections import defaultdict
 from copy import deepcopy
 import time
 
 
-def neighbours_4(matrix, x, y):
-    def in_range(x, y):
-        return 0 <= x < len(matrix[0]) and 0 <= y < len(matrix)
-    return [p for p in [(x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)] if in_range(*p)]
-
-
-def neighbours_8(matrix, x, y):
-    def in_range(x, y):
-        return 0 <= x < len(matrix[0]) and 0 <= y < len(matrix)
-    return [p for p in [(x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1), (x+1, y+1), (x-1, y-1), (x+1, y-1), (x-1, y+1)] if in_range(*p)]
-
-
-def help_func():
-    pass
-
-
 def part1(input_list):
     """ Part 1"""
-
-    mapp = defaultdict(int)
-
-    """ MATRIX """
-    ss = ''
-    main = []
-    """ LINE """
-
-    main = [str(x) for x in input_list[0]]
+    main_str = [str(x) for x in input_list[0]]
 
     counter = defaultdict(int)
 
-    for n in main:
+    for n in main_str:
         counter[n] += 1
 
     insertions = defaultdict(str)
-    for step in range(10):
+    for _ in range(10):
 
         insertions.clear()
         for line in input_list[2:]:
             if '->' in line:
                 line = [str(x) for x in line.split(" -> ")]
 
-            for i in range(len(main) - 1):
-                if main[i] + main[i+1] == line[0]:
+            for i in range(len(main_str) - 1):
+                if main_str[i] + main_str[i+1] == line[0]:
                     # main_copy.insert(i + 1 + insertions, line[1])
                     insertions[i + 1] = line[1]
 
         count = 0
         for key in sorted(insertions.keys()):
             letter = insertions[key]
-            main.insert(key + count, letter)
+            main_str.insert(key + count, letter)
             count += 1
-        ss = ''.join(main)
 
     cc = defaultdict(int)
 
     for n in 'BCDEFGHIJKLMNOPQRSTUV':
-        count = main.count(n)
+        count = main_str.count(n)
         if count != 0:
             cc[n] = count
 
@@ -76,11 +64,11 @@ def part1(input_list):
 def part2(input_list):
     """ Part 2 """
 
-    main = [str(x) for x in input_list[0]]
+    main_str = [str(x) for x in input_list[0]]
 
     counter = defaultdict(int)
 
-    for n in main:
+    for n in main_str:
         counter[n] += 1
 
     insertions = defaultdict(int)
@@ -92,15 +80,15 @@ def part2(input_list):
             line = [str(x) for x in line.split(" -> ")]
             input_pairs[line[0]] = line[1]
 
-        for i in range(len(main) - 1):
-            if main[i] + main[i+1] == line[0]:
+        for i in range(len(main_str) - 1):
+            if main_str[i] + main_str[i+1] == line[0]:
                 # main_copy.insert(i + 1 + insertions, line[1])
                 insertions[line[0]] += 1
                 counter[line[1]] += 1
 
     combos = insertions.copy()
     new_combos = defaultdict(int)
-    for step in range(39):
+    for _ in range(39):
         for k, v in combos.items():
             if input_pairs[k]:
                 new_item_1 = k[0] + str(input_pairs[k])
