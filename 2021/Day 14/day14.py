@@ -66,15 +66,16 @@ def part2(input_list):
 
     main_str = [str(x) for x in input_list[0]]
 
+    # Create a counter as a dictionary to store the number of each letter
     counter = defaultdict(int)
-
     for n in main_str:
         counter[n] += 1
 
+    # Insertions is a dictionary to store the number of insertions for each letter
     insertions = defaultdict(int)
     input_pairs = defaultdict(str)
 
-    insertions.clear()
+    # Read input
     for line in input_list[2:]:
         if '->' in line:
             line = [str(x) for x in line.split(" -> ")]
@@ -86,9 +87,18 @@ def part2(input_list):
                 insertions[line[0]] += 1
                 counter[line[1]] += 1
 
+    # Combos are the new insertions that need to be done
     combos = insertions.copy()
     new_combos = defaultdict(int)
-    for _ in range(39):
+
+    # For each step:
+    #   For each previous combination of possible insersions (there would be 2 for each pair and associated letter),
+    #   check if the new insertions are possible compared to the input_pairs
+    #   and add the new combos to the new_combos dictionary
+    for step in range(39):
+        # v: is the number of times the letter should be inserted in the main string
+        # so we keep count of the number of times the letter is inserted
+        # in the end this is how many of the letter we have inserted
         for k, v in combos.items():
             if input_pairs[k]:
                 new_item_1 = k[0] + str(input_pairs[k])
@@ -110,9 +120,12 @@ def part2(input_list):
         combos = deepcopy(new_combos)
         new_combos.clear()
 
-    # print(f"Step: {step + 2}")
-    # for c in counter:
-    #     print(c, counter[c])
+    print(f"Step: {step + 2}")
+    total = 0
+    for c in counter:
+        print(c, counter[c])
+        total += counter[c]
+    print(total)
 
     minn = min(counter.items(), key=lambda a: a[1])
     maxx = max(counter.items(), key=lambda a: a[1])
