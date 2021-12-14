@@ -8,8 +8,8 @@ resulting letter combinations, and their insertions and so and and so on. We kee
 total number of letters inserted.
 
 Results:
-2891 is the result of part 1 in 0.21100807189941406 seconds
-4607749009683 is the result of part 2 in 0.0038957595825195312 seconds
+2891 is the result of part 1 in 0.21 seconds
+4607749009683 is the result of part 2 in 0.0038 seconds
 """
 
 
