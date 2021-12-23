@@ -1,14 +1,14 @@
 """
-I got help for the second part, but the first part is a dijkstras algorithm. 
+I got help for the second part, but the first part is a dijkstras algorithm.
 
-Part 1: 
+Part 1:
     The thing is that the matrix needs to be converted to a graph of nodes first.
-    I've never done this before so it took me a long time. 
+    I've never done this before so it took me a long time.
 
-    I then redid part 1 with the heap solution after I understood it. 
+    I then redid part 1 with the heap solution after I understood it.
 
-Part 2: 
-    This is a heap approch of BFS with some fancy math. 
+Part 2:
+    This is a heap approch of BFS with some fancy math.
 
 Result:
     Part 1:
@@ -18,13 +18,15 @@ Result:
         Dijkstra's algorithm: N/A
         Heap solution: 0.68231 seconds
 
-Note: 
-    The matrix in Part 2 has 25 times more elements and still the heap solution for 
+Note:
+    The matrix in Part 2 has 25 times more elements and still the heap solution for
     Part 2 is faster than dijkstra's for Part 1...
 """
 from collections import defaultdict, deque
 import time
 from heapq import heappop, heappush
+from queue import PriorityQueue
+import math
 
 
 # Assume all directions
@@ -36,7 +38,7 @@ def neighbours_4_dict_2(matrix, x, y):
 
 def neighbours_4(matrix, x, y):
     def in_range(x, y):
-        return 0 <= y < len(matrix[0]) and 0 <= x < len(matrix)
+        return 0 <= y < len(matrix) and 0 <= x < len(matrix[0])
     return [p for p in [(x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)] if in_range(*p)]
 
 
@@ -109,6 +111,39 @@ def part1_1(input_list):
                 heappush(heap, (distance + n, x_, y_))
 
 
+def min_cost(matrix, start, end):
+    visited = defaultdict(lambda: math.inf, {(0, 0): 0})
+    queue = PriorityQueue()
+    queue.put((0, (0, 0)))
+
+    while queue:
+        cost, current = queue.get()
+
+        if current == end:
+            return cost
+
+        x, y = current
+        for x_next, y_next in ((x + 1, y), (x, y + 1), (x - 1, y), (x, y - 1)):
+            if 0 <= x_next < len(matrix[0]) and 0 <= y_next < len(matrix):
+                weight = matrix[y_next][x_next]
+                if weight is not None:
+                    cost_new = cost + weight
+                    if cost_new < visited[(x_next, y_next)]:
+                        visited[(x_next, y_next)] = cost_new
+                        queue.put((cost_new, (x_next, y_next)))
+
+
+def part1_2(input_list):
+    matrix = [list(map(int, line)) for line in input_list]
+
+    lx = len(matrix[0])
+    ly = len(matrix)
+
+    minn = min_cost(matrix, (0, 0), (lx-1, ly-1))
+    print(minn)
+    return minn
+
+
 def part2(input_list):
     """ Part 2 """
     heap = [(0, 0, 0)]
@@ -145,8 +180,8 @@ def main():
     t0 = time.time()
     result2 = part2(input_list)
     t1 = time.time()
-
     print(f"{result2} is the result of part 2 in {t1-t0} seconds\n")
+    print(part1_2(input_list))
 
 
 # Run main function
