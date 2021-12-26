@@ -1,5 +1,5 @@
 """
-Not very optimized but it works haha.
+Wasn't very optimized but it worked. Optimized it a bunch as you can see below. 
 
 Runs:
     1: 4.23193097114563 seconds
