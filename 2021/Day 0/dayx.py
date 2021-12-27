@@ -1,9 +1,10 @@
 """
 """
-from collections import defaultdict
-from copy import deepcopy
+import sys
 import time
-from typing import Union
+import math
+from collections import defaultdict, Counter, deque
+from copy import deepcopy
 from utils.helpers import *
 
 
@@ -17,13 +18,10 @@ def part1(input_list):
     lx = len(first)
     ly = len(input_list)
 
-    """ MATRIX """
     matrix = [[int(x) for x in line] for line in input_list]
-    # Print the matrix
     for line in matrix:
         print(line)
 
-    """ LINE """
     for line in input_list:
         line = [int(x) for x in line]
         line = [str(x) for x in line.split(" ")]
@@ -47,13 +45,12 @@ def main():
     t0 = time.time()
     result = part1(input_list)
     t1 = time.time()
-    print(f"{result} is the result of part 1 in {t1-t0} seconds\n")
+    print(f"\n{bcolors.OKGREEN}{result}{bcolors.ENDC} is the result of part 1.\n{bcolors.OKBLUE}{round(t1-t0, 4)}{bcolors.ENDC} seconds\n")
 
     t0 = time.time()
     result2 = part2(input_list)
     t1 = time.time()
-
-    print(f"{result2} is the result of part 2 in {t1-t0} seconds\n")
+    print(f"\n{bcolors.OKGREEN}{result}{bcolors.ENDC} is the result of part 2.\n{bcolors.OKBLUE}{round(t1-t0, 4)}{bcolors.ENDC} seconds\n")
 
 
 # Run main function
