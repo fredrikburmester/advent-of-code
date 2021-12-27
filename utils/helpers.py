@@ -118,3 +118,15 @@ def print_dict(d: Union[dict, defaultdict, set]) -> None:
             for x in range(_min[1], _max[0] + 1):
                 print(d.get((x, y), "."), end="")
             print()
+
+
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
