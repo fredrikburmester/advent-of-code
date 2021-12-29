@@ -19,11 +19,15 @@ Runs:
 
     Implemented dict method:
     7: 1.0753881931304932 seconds
+
+    Implemented string manipulation:
+    8: 0.2694 seconds
 """
 from collections import defaultdict
 from copy import deepcopy
 import time
 from utils.helpers import *
+import functools
 
 
 def part1(input_list):
@@ -137,19 +141,79 @@ def part1_dict(input_list):
     return step
 
 
+def part1_string(input_list):
+    def move(matrix, sym):
+        for i, l in enumerate(matrix):
+            ll = l[0]
+            l = l + l[0]
+            l = l.replace(f'{sym}.', f'.{sym}')
+            matrix[i] = ''.join(l[-1] + l[1:-1]) if l[-1] != ll else ''.join(l[:-1])
+        return matrix
+
+    matrix = input_list
+    step = 0
+    while 1:
+        step += 1
+        right_next = [''.join(line) for line in zip(*move(matrix, '>'))]
+        down_new = [''.join(line) for line in zip(*move(right_next, 'v'))]
+        if matrix == down_new:
+            return step + 3
+        matrix = down_new
+
+
+def part1_string_2(input_list):
+    matrix = input_list
+
+    step = 0
+    while 1:
+        step += 1
+        old_matrix = matrix
+        right = [''.join(line) for line in matrix]
+        for i, line in enumerate(right):
+            line_new = line.replace('>.', '.>')
+            if line[0] == '.' and line[-1] == '>':
+                line_new = '>' + line_new[1:-1] + '.'
+            right[i] = line_new
+        down = [''.join(line) for line in zip(*right)]
+
+        for i, line in enumerate(down):
+            line_new = line.replace('v.', '.v')
+            if line[0] == '.' and line[-1] == 'v':
+                line_new = 'v' + line_new[1:-1] + '.'
+            down[i] = line_new
+        matrix = [[x for x in line] for line in zip(*down)]
+
+        if old_matrix == matrix:
+            return step
+
+
 def main():
     with open("./2021/Day 25/input.txt", "r", encoding='UTF-8') as file:
         input_list = [str(line.strip()) for line in file]
 
+    input_list1 = deepcopy(input_list)
     t0 = time.time()
-    result = part1(input_list)
+    result = part1(input_list1)
     t1 = time.time()
-    print(f"\n{bcolors.OKGREEN}{result}{bcolors.ENDC} is the result using arrays\n{bcolors.OKBLUE}{round(t1-t0, 4)}{bcolors.ENDC} seconds\n")
+    print(f"{bcolors.OKGREEN}{result}{bcolors.ENDC} is the result using arrays\n{bcolors.OKBLUE}{round(t1-t0, 4)}{bcolors.ENDC} seconds\n")
 
+    input_list2 = deepcopy(input_list)
     t0 = time.time()
-    result = part1_dict(input_list)
+    result = part1_dict(input_list2)
     t1 = time.time()
-    print(f"{bcolors.OKGREEN}{result}{bcolors.ENDC} is the result using dictionary\n{bcolors.OKBLUE}{round(t1-t0, 4)}{bcolors.ENDC} seconds\n")
+    print(f"{bcolors.OKGREEN}{result}{bcolors.ENDC} is the result using a dict\n{bcolors.OKBLUE}{round(t1-t0, 4)}{bcolors.ENDC} seconds\n")
+
+    input_list3 = deepcopy(input_list)
+    t0 = time.time()
+    result = part1_string_2(input_list3)
+    t1 = time.time()
+    print(f"{bcolors.OKGREEN}{result}{bcolors.ENDC} is the result using string manipulation\n{bcolors.OKBLUE}{round(t1-t0, 4)}{bcolors.ENDC} seconds\n")
+
+    input_list4 = deepcopy(input_list)
+    t0 = time.time()
+    result = part1_string(input_list4)
+    t1 = time.time()
+    print(f"{bcolors.OKGREEN}{result}{bcolors.ENDC} is the result using advanced string manipulation\n{bcolors.OKBLUE}{round(t1-t0, 4)}{bcolors.ENDC} seconds\n")
 
 
 # Run main function
