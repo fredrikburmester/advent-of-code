@@ -2,18 +2,13 @@
 """
 import sys
 import time
-import math
-import pathlib
-from collections import defaultdict, Counter, deque
-from copy import deepcopy
 
 PATH="/Users/fredrikburmester/Documents/GitHub/advent-of-code"
 DAY=5
 INPUT_PATH=f"{PATH}/2022/Day {DAY}/input.txt"
 
 sys.path.append(PATH)  
-from utils.helpers import *
-
+from utils.helpers import bcolors
 
 def part1(input_list):
     """ Part 1"""
