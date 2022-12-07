@@ -61,29 +61,20 @@ class File:
 def create_tree(input_list):
     root = Directory("root", None)
     cd = root
-    is_not_command = False
-
+    
     for line in input_list:
-        if "$ cd " in line:
-            is_not_command = False
+        if line.startswith('$ cd'):
             directory = line.split(" ")[2].strip("/")
-            if directory == "..":
-                if cd.parent != None:
+            if directory == ".." and cd.parent != None:
                     cd = cd.parent
-            else:
-                if directory != "":
-                    for child in cd.children:
-                        if child.name == directory:
-                            cd = child
-                            break
-        elif "$ ls" in line:
-            is_not_command = True
-            continue
-        if is_not_command:
-            if "dir " in line:
-                cd.add_child(Directory(line.split(" ")[1], cd))
-            else:
-                cd.files.append(File(line.split(" ")[1], int(line.split(" ")[0])))
+            elif directory != "":
+                for child in cd.children:
+                    if child.name == directory:
+                        cd = child
+                        break
+        elif line.startswith('$ ls'): continue
+        elif line.startswith('dir'): cd.add_child(Directory(line.split(" ")[1], cd))
+        else: cd.files.append(File(line.split(" ")[1], int(line.split(" ")[0])))
 
     return root
 
