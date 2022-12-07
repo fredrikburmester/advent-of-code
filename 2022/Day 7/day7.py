@@ -61,7 +61,7 @@ class File:
 def create_tree(input_list):
     root = Directory("root", None)
     cd = root
-    
+
     for line in input_list:
         if line.startswith('$ cd'):
             directory = line.split(" ")[2].strip("/")
@@ -82,29 +82,20 @@ def create_tree(input_list):
 def part1(input_list: list):
     """ Part 1"""
     root = create_tree(input_list)
-
-    total_size = 0
-    for d in root.linearize():
-        if d.calculate_total_size() <= 100000:
-            total_size += d.calculate_total_size()
-
+    total_size = sum([d.calculate_total_size() for d in root.linearize() if d.calculate_total_size() <= 100000])
     return total_size
 
 
 def part2(input_list):
     """ Part 2 """
     root = create_tree(input_list)
-
     total_space = 70000000
     min_available_space = 30000000
     used_space = root.calculate_total_size()
     space_needed = min_available_space - (total_space - used_space)
-
-    dirs_large_enough_to_be_deleted = []
-    for d in root.linearize():
-        if d.calculate_total_size() >= space_needed:
-            dirs_large_enough_to_be_deleted.append(d.calculate_total_size())
-
+    
+    dirs_large_enough_to_be_deleted = [d.calculate_total_size() for d in root.linearize() if d.calculate_total_size() >= space_needed]
+    
     return min(dirs_large_enough_to_be_deleted)
 
 
