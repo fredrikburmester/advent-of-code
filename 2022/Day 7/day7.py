@@ -1,17 +1,9 @@
 """
+This solution works since ls is always called after entering a new directory.
+This way we can map the structure of the directories and files in to a tree.
 """
-import random
 import sys
 import time
-import math
-import pathlib
-from collections import defaultdict, Counter, deque
-from copy import deepcopy
-import networkx as nx
-import matplotlib.pyplot as plt
-import matplotlib.pyplot as plt
-import squarify    # pip install squarify (algorithm for treemap)
-import pandas as pd
 PATH="/Users/fredrikburmester/Documents/GitHub/advent-of-code"
 DAY=7
 INPUT_PATH=f"{PATH}/2022/Day {DAY}/input.txt"
