@@ -1,4 +1,5 @@
 """
+Credit to Johanna Skåntorp for the idea of using prime number bodys for part 2.
 """
 import sys
 import time
