@@ -29,16 +29,17 @@ def value_of_number(number):
     return numbers.index(number) + 1
 
 def part1(input_list):
-    """ Part 1"""
+    """ 
+    Part 1
+    
+    Expect lines are never empty and always contain at least two numbers.
+    """
+    
     res = 0
 
     for line in input_list:
         line = [int(x) for x in line if x.isdigit()]
-
-        if len(line) == 0:
-            continue
         res += int(f"{line[0]}{line[-1]}")
-
     return res
 
 def part2(input_list):
