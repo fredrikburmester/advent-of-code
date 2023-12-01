@@ -42,6 +42,7 @@ def part1(input_list):
         res += int(f"{line[0]}{line[-1]}")
     return res
 
+
 def part2(input_list):
     """ Part 2 """
     res = 0
@@ -50,6 +51,7 @@ def part2(input_list):
         first = ""
         last = ""
 
+        # Find first number
         found_first = False
         for i, l1 in enumerate(line):
             if found_first:
@@ -71,6 +73,7 @@ def part2(input_list):
                     first = str(value_of_number(temp))
                     break
 
+        # Find last number
         for i, l1 in enumerate(line):
             temp = l1
 
