@@ -13,6 +13,9 @@ from typing import Union
 from collections import defaultdict
 
 
+__all__ = ["neighbours_4", "neighbours_8", "min_max_of_set", "print_dict_full", "print_dict", "bcolors"]
+
+
 def neighbours_4(m: Union[list, defaultdict], x, y) -> list:
     """ returns the neighbours of a point in a matrix or dict """
     if not isinstance(m, list) and not isinstance(m, defaultdict):
