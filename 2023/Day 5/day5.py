@@ -8,7 +8,6 @@ INPUT_PATH=f"{PATH}/2023/Day {DAY}/input.txt"
 sys.path.append(PATH)  
 from utils.helpers import *
 
-
 def is_integer(n):
     try:
         float(n)
