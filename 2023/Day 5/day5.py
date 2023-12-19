@@ -72,7 +72,15 @@ def location_to_seed(i, tests):
     return r
 
 def part2(input_list):
-    """ Part 2 """
+    """ Part 2 
+    This part was really hard to figure out. I don't do anything fancy here, just brute force it.
+    The idea is to go backwards. Since we're trying to find the lowest location, we can start at 0 and go up.
+    We then apply the inverse mapping function to the location, and if it's a seed, we return the location.
+
+    I also do some optimizations, like turning the instructions into a list so that we don't have to parse them every time.
+
+    This part took 360s to run on my machine... Outch :D
+    """
 
     seeds = [int(x) for x in input_list[0].split("seeds: ").pop().split(" ")]
 
