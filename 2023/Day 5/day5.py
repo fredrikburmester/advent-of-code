@@ -1,12 +1,5 @@
 import sys
 import time
-import math
-import pathlib
-from collections import defaultdict, Counter, deque
-from copy import deepcopy
-from functools import lru_cache
-from multiprocessing import Pool, Event, cpu_count
-import os
 
 PATH="/Users/fredrikburmester/Documents/GitHub/advent-of-code"
 DAY=5
@@ -14,6 +7,7 @@ INPUT_PATH=f"{PATH}/2023/Day {DAY}/input.txt"
 
 sys.path.append(PATH)  
 from utils.helpers import *
+
 
 def is_integer(n):
     try:
