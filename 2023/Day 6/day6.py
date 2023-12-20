@@ -1,9 +1,5 @@
 import sys
 import time
-import math
-import pathlib
-from collections import defaultdict, Counter, deque
-from copy import deepcopy
 
 PATH="/Users/fredrikburmester/Documents/GitHub/advent-of-code"
 DAY=6
@@ -11,6 +7,7 @@ INPUT_PATH=f"{PATH}/2023/Day {DAY}/input.txt"
 
 sys.path.append(PATH)  
 from utils.helpers import *
+
 
 def get_distance(th, tl):
     return th * tl
@@ -30,7 +27,6 @@ def part1(input_list):
     distances = [int(x.strip()) for x in input_list[1].split(":")[1].split(" ") if x != ""]
 
     assert len(times) == len(distances)
-
 
     wins_per_game = 1
     for _, (t, rd) in enumerate(zip(times, distances)):
