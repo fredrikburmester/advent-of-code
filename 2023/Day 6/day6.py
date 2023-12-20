@@ -12,6 +12,7 @@ from utils.helpers import *
 def get_distance(th, tl):
     return th * tl
 
+
 def wins_for_game(t, rd):
     wins = 0
     for ms in range(t):
@@ -19,6 +20,7 @@ def wins_for_game(t, rd):
         if d > rd:
             wins += 1
     return wins
+
 
 def part1(input_list):
     """ Part 1"""
