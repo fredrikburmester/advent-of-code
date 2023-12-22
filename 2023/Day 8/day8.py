@@ -48,10 +48,6 @@ def part1(input_list):
         a, b, c = parse_line(line)
         d[a] = (b, c)
 
-    print(steps, len(steps))
-    for key, value in d.items():
-        print(key, value)
-
     i = -1
     count = 0
     while True:
@@ -114,8 +110,6 @@ def part2(input_list):
                 counts.append(c)
                 break
 
-    print(counts)
-
     # Find the lowest common multiple of the numbers in the list.
     # This will be the number of steps it takes for all paths to reach XXZ at the same time.
     return lcm_list(counts)
@@ -125,10 +119,10 @@ def main():
     with open(INPUT_PATH, "r", encoding='UTF-8') as file:
         input_list = [str(line.strip()) for line in file]
 
-    # t0 = time.time()
-    # result = part1(input_list)
-    # t1 = time.time()
-    # print(f"\n{bcolors.OKGREEN}{result}{bcolors.ENDC} is the result of part 1.\n{bcolors.OKBLUE}{round(t1-t0, 4)}{bcolors.ENDC} seconds\n")
+    t0 = time.time()
+    result = part1(input_list)
+    t1 = time.time()
+    print(f"\n{bcolors.OKGREEN}{result}{bcolors.ENDC} is the result of part 1.\n{bcolors.OKBLUE}{round(t1-t0, 4)}{bcolors.ENDC} seconds\n")
 
     t0 = time.time()
     result2 = part2(input_list)
