@@ -2,7 +2,7 @@ import sys
 import time
 from functools import reduce
 from itertools import cycle
-from math import lcm
+from math import gcd
 
 PATH="/Users/fredrikburmester/Documents/GitHub/advent-of-code"
 DAY=8
@@ -65,13 +65,8 @@ def part1(input_list):
         if pos == end:
             return count
         
-def add_until_equal(numbers):
-    differences = [abs(j - i) for i, j in zip(numbers, numbers[1:])]
-    lcm_diff = lcm(*differences)
-
-    max_number = max(numbers)
-    steps = max((max_number - num + lcm_diff - 1) // lcm_diff for num in numbers)
-    return [num + steps * lcm_diff for num in numbers]
+def lcm(a):
+    return reduce(lambda x, y: (x*y) // gcd(x,y), a)
 
 def part2(input_list):
     """ Part 2"""
@@ -105,7 +100,7 @@ def part2(input_list):
 
     # Find the lowest common multiple of the numbers in the list.
     # This will be the number of steps it takes for all paths to reach XXZ at the same time.
-    return add_until_equal(counts)
+    return lcm(counts)
 
 
 def main():
